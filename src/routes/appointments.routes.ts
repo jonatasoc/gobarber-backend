@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { parseISO } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
+
 import CreateAppointmentService from '../services/CreateAppointmentService';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 // startOfHour vai pegar a hora passada e colocar minuto e segundos como 0, deixando apenas a hora
@@ -7,27 +9,24 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 const appointmentsRouter = Router();
 
-const appointmentsReposistory = new AppointmentsRepository();
-
-appointmentsRouter.get('/', (request, response) => {
-  const appointments = appointmentsReposistory.all();
+appointmentsRouter.get('/', async (request, response) => {
+  const appointmentsReposistory = getCustomRepository(AppointmentsRepository);
+  const appointments = await appointmentsReposistory.find();
 
   return response.json(appointments);
 });
 
-appointmentsRouter.post('/', (request, response) => {
+appointmentsRouter.post('/', async (request, response) => {
   try {
-    const { provider, date } = request.body;
+    const { provider_id, date } = request.body;
 
     const parsedDate = parseISO(date);
 
-    const createAppointment = new CreateAppointmentService(
-      appointmentsReposistory
-    );
+    const createAppointment = new CreateAppointmentService();
 
-    const appointment = createAppointment.execute({
+    const appointment = await createAppointment.execute({
       date: parsedDate,
-      provider,
+      provider_id,
     });
 
     return response.json(appointment);
