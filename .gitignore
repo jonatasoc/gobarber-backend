@@ -11,3 +11,4 @@ lerna-debug.log*
 tmp/*
 !tmp/.gitkeep
 temp/
+ormconfig.json
