@@ -7,7 +7,11 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
 // startOfHour vai pegar a hora passada e colocar minuto e segundos como 0, deixando apenas a hora
 // pasrseISO vai converter um formato String para um formato Date
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const appointmentsRouter = Router();
+
+appointmentsRouter.use(ensureAuthenticated);
 
 appointmentsRouter.get('/', async (request, response) => {
   const appointmentsReposistory = getCustomRepository(AppointmentsRepository);
@@ -17,22 +21,18 @@ appointmentsRouter.get('/', async (request, response) => {
 });
 
 appointmentsRouter.post('/', async (request, response) => {
-  try {
-    const { provider_id, date } = request.body;
+  const { provider_id, date } = request.body;
 
-    const parsedDate = parseISO(date);
+  const parsedDate = parseISO(date);
 
-    const createAppointment = new CreateAppointmentService();
+  const createAppointment = new CreateAppointmentService();
 
-    const appointment = await createAppointment.execute({
-      date: parsedDate,
-      provider_id,
-    });
+  const appointment = await createAppointment.execute({
+    date: parsedDate,
+    provider_id,
+  });
 
-    return response.json(appointment);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  return response.json(appointment);
 });
 
 export default appointmentsRouter;
