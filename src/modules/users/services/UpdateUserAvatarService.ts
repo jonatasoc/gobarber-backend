@@ -3,9 +3,9 @@ import path from 'path';
 import fs from 'fs';
 
 import uploadconfig from '../config/upload';
-import User from '../models/User';
+import AppError from '../../../shared/errors/AppError';
 
-import AppError from '../errors/AppError';
+import User from '../entities/User';
 
 interface Request {
   user_id: string;
