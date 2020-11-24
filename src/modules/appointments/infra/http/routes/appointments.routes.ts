@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { parseISO } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
-import CreateAppointmentService from '../services/CreateAppointmentService';
-import AppointmentsRepository from '../repositories/AppointmentsRepository';
+import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
+import AppointmentsRepository from '@modules/appointments/repositories/AppointmentsRepository';
 // startOfHour vai pegar a hora passada e colocar minuto e segundos como 0, deixando apenas a hora
 // pasrseISO vai converter um formato String para um formato Date
 
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const appointmentsRouter = Router();
 

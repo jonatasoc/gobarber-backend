@@ -3,13 +3,13 @@ import 'reflect-metadata';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import routes from './routes';
-import uploadConfig from './config/upload';
+import uploadConfig from '@config/upload';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import AppError from './errors/AppError';
+import AppError from '@shared/errors/AppError';
 
-import './database';
+import '@shared/infra/database';
 
 const app = express();
 app.use(cors());
