@@ -20,11 +20,10 @@ class UsersRepository implements UsersRepositoryInterface {
 
   public async findByEmail(email: string): Promise<User | undefined> {
     const user = await this.ormRepository.findOne({
-      where: { email }
+      where: { email },
     });
 
     return user;
-  }
   }
 
   public async create({ email, name, password }: CreateUserDTO): Promise<User> {
