@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/58</span>
+                <span class='fraction'>60/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/58</span>
+                <span class='fraction'>60/60</span>
             </div>
         
             
@@ -115,7 +115,9 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -139,6 +141,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -147,34 +167,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import 'reflect-metadata';
-import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import { injectable, inject } from 'tsyringe';
@@ -183,6 +186,7 @@ import AppError from '@shared/errors/AppError';
 &nbsp;
 import User from '../infra/typeorm/entities/User';
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositoryInterface';
+import HashProviderInterface from '../providers/HashProvider/models/HashProviderInterface';
 &nbsp;
 interface Request {
   email: string;
@@ -198,23 +202,25 @@ interface Response {
 class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: UsersRepositoryInterface
+    private usersRepository: UsersRepositoryInterface,
+&nbsp;
+    private hashProvider: HashProviderInterface
   ) {}
 &nbsp;
   public async execute({ email, password }: Request): Promise&lt;Response&gt; {
     const user = await this.usersRepository.findByEmail(email);
 &nbsp;
-    if (!user) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new AppError('Incorrect email/password combination.', 401);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    if (!user) {
+      throw new AppError('Incorrect email/password combination.', 401);
+    }
 &nbsp;
     // user.password - Senha criptografada, vinda do Banco
     // password - Senha não criptografada, vinda da Requisição
-    const passwordMatched = await compare(password, user.password);
+    const passwordMatched = await this.hashProvider.compareHash(password, user.password);
 &nbsp;
-    if (!passwordMatched) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new AppError('Incorrect email/password combination.', 401);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    if (!passwordMatched) {
+      throw new AppError('Incorrect email/password combination.', 401);
+    }
 &nbsp;
     const { secret, expiresIn } = authConfig.jwt;
 &nbsp;
@@ -238,7 +244,7 @@ export default AuthenticateUserService;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 15 2020 19:21:24 GMT-0300 (Brasilia Standard Time)
+                at Wed Dec 16 2020 14:51:21 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
