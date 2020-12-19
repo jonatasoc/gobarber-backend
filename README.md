@@ -19,3 +19,55 @@ Backend of Go Barber App (https://github.com/jonatasoc/gostack_gobarber_web)
   <img alt="License" src="https://img.shields.io/github/license/jonatasoc/gobarber-backend">
 </p>
 <p align="center">
+
+
+## :computer: Languages
+
+- **#TypeScript**
+
+## :books: Technologies
+
+- **#Express**
+- **#TypeORM**
+- **#ESLint**
+- **#Prettier**
+- **#AWS S3**
+- **#Multer**
+- **#AWS SES**
+- **#Celebrate**
+- **#JWT**
+- **#Nodemailer**
+- **#Handlebars**
+- **#TSringe**
+- **#ioRedis**
+- **#rate-limiter-flexible**
+- **#Commitlint**
+- **#Commitizen**
+- **#Husky**
+
+## :file_cabinet: Databases
+
+- **#Postgres**
+- **#MongoDB**
+- **#Redis**
+
+## :construction_worker: Installation
+
+Init your repository before install, or you will need to reinstall husky.
+
+```sh
+yarn install
+```
+
+## Usage
+
+```sh
+yarn dev:server
+```
+
+## Author
+
+👤 **Jonatas de Oliveira Coelho**
+
+* Github: [@JonatasOC](https://github.com/JonatasOC)
+* Linkedin: [@JonatasOC](https://www.linkedin.com/in/jonatasoc/)
