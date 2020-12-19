@@ -71,3 +71,8 @@ yarn dev:server
 
 * Github: [@JonatasOC](https://github.com/JonatasOC)
 * Linkedin: [@JonatasOC](https://www.linkedin.com/in/jonatasoc/)
+
+## :closed_book: License
+
+Released in 2020 (Work in progress)
+This project is under the MIT license
