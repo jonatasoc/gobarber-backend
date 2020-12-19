@@ -23,33 +23,33 @@ Backend of Go Barber App (https://github.com/jonatasoc/gostack_gobarber_web)
 
 ## :computer: Languages
 
-- **#TypeScript**
+- **TypeScript**
 
 ## :books: Technologies
 
-- **#Express**
-- **#TypeORM**
-- **#ESLint**
-- **#Prettier**
-- **#AWS S3**
-- **#Multer**
-- **#AWS SES**
-- **#Celebrate**
-- **#JWT**
-- **#Nodemailer**
-- **#Handlebars**
-- **#TSringe**
-- **#ioRedis**
-- **#rate-limiter-flexible**
-- **#Commitlint**
-- **#Commitizen**
-- **#Husky**
+- **Express**
+- **TypeORM**
+- **ESLint**
+- **Prettier**
+- **AWS S3**
+- **Multer**
+- **AWS SES**
+- **Celebrate**
+- **JWT**
+- **Nodemailer**
+- **Handlebars**
+- **TSringe**
+- **ioRedis**
+- **rate-limiter-flexible**
+- **Commitlint**
+- **Commitizen**
+- **Husky**
 
 ## :file_cabinet: Databases
 
-- **#Postgres**
-- **#MongoDB**
-- **#Redis**
+- **Postgres**
+- **MongoDB**
+- **Redis**
 
 ## :construction_worker: Installation
 
