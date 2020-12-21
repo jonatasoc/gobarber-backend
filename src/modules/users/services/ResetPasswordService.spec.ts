@@ -38,8 +38,8 @@ describe('ResetPasswordService', () => {
     const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
 
     await resetPassword.execute({
+      token: userToken.token,
       password: '123123',
-      token: userToken.id,
     });
 
     const updatedUser = await fakeUsersRepository.findById(user.id);
