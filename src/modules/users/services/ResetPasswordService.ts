@@ -5,6 +5,8 @@ import { injectable, inject } from 'tsyringe';
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositoryInterface';
 import UserTokensInterface from '../repositories/UserTokensInterface';
 import AppError from '@shared/errors/AppError';
+import HashProviderInterface from '../providers/HashProvider/models/HashProviderInterface';
+
 // import AppError from '@shared/errors/AppError';
 
 interface Request {
@@ -19,7 +21,10 @@ class ResetPasswordService {
     private usersRepository: UsersRepositoryInterface,
 
     @inject('UserTokensRepository')
-    private userTokensRepository: UserTokensInterface
+    private userTokensRepository: UserTokensInterface,
+
+    @inject('HashProvider')
+    private hashProvider: HashProviderInterface
   ) {}
 
   public async execute({ token, password }: Request): Promise<void> {
@@ -35,7 +40,7 @@ class ResetPasswordService {
       throw new AppError('User does not exists');
     }
 
-    user.password = password;
+    user.password = await this.hashProvider.generateHash(password);
 
     await this.usersRepository.save(user);
   }
