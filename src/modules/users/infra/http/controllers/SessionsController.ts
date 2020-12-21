@@ -5,7 +5,7 @@ import AuthenticateUserService from '@modules/users/services/AuthenticateUserSer
 // startOfHour vai pegar a hora passada e colocar minuto e segundos como 0, deixando apenas a hora
 // pasrseISO vai converter um formato String para um formato Date
 
-export default class AppointmentsController {
+export default class SessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
 
