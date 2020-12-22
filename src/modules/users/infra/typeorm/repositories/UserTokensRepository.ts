@@ -1,7 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 
 import UserToken from '../entities/UserToken';
-import CreateUserDTO from '@modules/users/dtos/CreateUserDTO';
 
 import UserTokensInterface from '@modules/users/repositories/UserTokensInterface';
 
@@ -12,30 +11,20 @@ class UserTokensRepository implements UserTokensInterface {
     this.ormRepository = getRepository(UserToken);
   }
 
-  public async findById(id: string): Promise<UserToken | undefined> {
-    const user = await this.ormRepository.findOne(id);
-
-    return user;
-  }
-
-  public async findByEmail(email: string): Promise<UserToken | undefined> {
-    const user = await this.ormRepository.findOne({
-      where: { email },
+  public async findByToken(token: string): Promise<UserToken | undefined> {
+    const userToken = await this.ormRepository.findOne({
+      where: { token },
     });
 
-    return user;
+    return userToken;
   }
 
-  public async create({ email, name, password }: CreateUserDTO): Promise<UserToken> {
-    const user = await this.ormRepository.create({ email, name, password });
+  public async generate(user_id: string): Promise<UserToken> {
+    const userToken = this.ormRepository.create({ user_id });
 
-    await this.ormRepository.save(user);
+    await this.ormRepository.save(userToken);
 
-    return user;
-  }
-
-  public async save(user: UserToken): Promise<UserToken> {
-    return this.ormRepository.save(user);
+    return userToken;
   }
 }
 
