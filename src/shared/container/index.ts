@@ -7,8 +7,8 @@ import AppointmentsRepositoryInterface from '@modules/appointments/repositories/
 import AppointmentsRepository from '@modules/appointments/infra/typeorm/repositories/AppointmentsRepository';
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositoryInterface';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
-// import UserTokensInterface from '@modules/users/repositories/UserTokensInterface';
-// import UserTokensInterface from '@modules/users/infra/typeorm/repositories/';
+import UserTokensInterface from '@modules/users/repositories/UserTokensInterface';
+import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
 
 // registerSingleton cria a instância apenas uma vez durante todo o ciclo de vida de nossa aplicação, diferente do método register
 // que cria uma nova instância sempre que é chamado.
@@ -17,3 +17,4 @@ container.registerSingleton<AppointmentsRepositoryInterface>(
   AppointmentsRepository
 );
 container.registerSingleton<UsersRepositoryInterface>('UsersRepository', UsersRepository);
+container.registerSingleton<UserTokensInterface>('UserTokensRepository', UserTokensRepository);
