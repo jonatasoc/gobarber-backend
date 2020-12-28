@@ -6,6 +6,7 @@ import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositor
 import MailProviderInterface from '@shared/container/providers/MailProvider/models/MailProviderInterface';
 import UserTokensInterface from '../repositories/UserTokensInterface';
 import AppError from '@shared/errors/AppError';
+import SendMailDTO from '@shared/container/providers/MailProvider/dtos/SendMailDTO';
 
 interface Request {
   email: string;
@@ -33,7 +34,20 @@ class SendForgotPasswordEmailService {
 
     const { token } = await this.userTokensRepository.generate(user.id);
 
-    await this.mailProvider.sendMail(email, `Pedido de recuperação de senha recebido: ${token}`);
+    await this.mailProvider.sendMail({
+      to: {
+        name: user.name,
+        email: user.email,
+      },
+      subject: '[GoBarger] Recuperação de senha',
+      templateData: {
+        template: 'Olá, {{name}}: {{token}}',
+        variables: {
+          name: user.name,
+          token,
+        },
+      },
+    });
   }
 }
 
