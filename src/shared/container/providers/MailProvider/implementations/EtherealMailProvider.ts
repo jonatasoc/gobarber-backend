@@ -1,10 +1,6 @@
 import nodemailer, { Transporter } from 'nodemailer';
+import SendMailDTO from '../dtos/SendMailDTO';
 import MailProviderInterface from '../models/MailProviderInterface';
-
-interface Message {
-  to: string;
-  body: string;
-}
 
 export default class EtherealMailProvider implements MailProviderInterface {
   private client: Transporter;
@@ -25,12 +21,18 @@ export default class EtherealMailProvider implements MailProviderInterface {
     });
   }
 
-  public async sendMail(to: string, body: string): Promise<void> {
+  public async sendMail({ to, from, subject }: SendMailDTO): Promise<void> {
     const message = await this.client.sendMail({
-      from: 'Equipe GoBarber <equipe@gobarber.com.br>',
-      to,
+      from: {
+        name: from?.name || 'Equipe GoBarber',
+        address: from.email || 'equipe@gobarber.com.br',
+      },
+      to: {
+        name: to.name,
+        address: to.email,
+      },
       subject: 'Recuperação de senha',
-      text: body,
+      text: 'Teste',
     });
 
     console.log('Message sent: %s', message.messageId);
