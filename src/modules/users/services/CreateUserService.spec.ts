@@ -5,14 +5,21 @@ import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 
 import AppError from '@shared/errors/AppError';
 
+let fakeUsersRepository: FakeUsersRepository;
+let fakeHashProvider: FakeHashProvider;
+let createUser: CreateUserService;
+
+// describe criar como uma "Categoria para os testes"
+
 // describe criar como uma "Categoria para os testes"
 describe('CreateUser', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    fakeHashProvider = new FakeHashProvider();
+    createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
+  });
+
   it('should be able to create a new user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-
-    const createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
-
     const user = await createUser.execute({
       name: 'John Doe',
       email: 'johndow@example.com',
@@ -23,11 +30,6 @@ describe('CreateUser', () => {
   });
 
   it('should not be able to create a new user with an email that already exists', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const fakeHashProvider = new FakeHashProvider();
-
-    const createUser = new CreateUserService(fakeUsersRepository, fakeHashProvider);
-
     const user = await createUser.execute({
       name: 'John Doe',
       email: 'johndow@example.com',
