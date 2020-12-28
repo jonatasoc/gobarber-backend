@@ -12,8 +12,12 @@ import MailTemplateProvider from './MailTemplateProvider/implementations/Handleb
 // import MailProviderInterface from './MailProvider/models/MailProviderInterface';
 
 container.registerSingleton<StorageProviderInterface>('StorageProvider', DiskStorageProvider);
-container.registerInstance<MailProviderInterface>('MailProvider', new EtherealMailProvider());
 container.registerSingleton<MailTemplateProviderInterface>(
   'MailTemplateProvider',
   MailTemplateProvider
+);
+
+container.registerInstance<MailProviderInterface>(
+  'MailProvider',
+  container.resolve(EtherealMailProvider)
 );
