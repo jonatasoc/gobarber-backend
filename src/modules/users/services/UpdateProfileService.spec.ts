@@ -65,7 +65,7 @@ describe('UpdateProfile', () => {
       user_id: user.id,
       name: 'John Trê',
       email: 'johntre@example.com',
-      old_password: '123123',
+      old_password: '123456',
       password: '123123',
     });
 
@@ -89,7 +89,7 @@ describe('UpdateProfile', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('should not be able to update the user password without old password', async () => {
+  it('should not be able to update the user password with wrong old password', async () => {
     const user = await fakeUsersRepository.create({
       name: 'John Doe',
       email: 'johndow@example.com',
@@ -101,6 +101,7 @@ describe('UpdateProfile', () => {
         user_id: user.id,
         name: 'John Trê',
         email: 'johntre@example.com',
+        old_password: 'wrong-old-password',
         password: '123123',
       })
     ).rejects.toBeInstanceOf(AppError);

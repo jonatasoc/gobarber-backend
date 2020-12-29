@@ -44,7 +44,12 @@ class UpdateProfileService {
       throw new AppError('You need to inform the old password to set a new password.');
     }
 
-    if (password) {
+    if (password && old_password) {
+      const checkOldPassword = await this.hashProvider.compareHash(old_password, user.password);
+
+      if (!checkOldPassword) {
+        throw new AppError('Old password not match .');
+      }
       user.password = await this.hashProvider.generateHash(password);
     }
 
