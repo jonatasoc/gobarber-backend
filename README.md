@@ -16,10 +16,14 @@ Backend of Go Barber App (https://github.com/jonatasoc/gostack_gobarber_web)
    <a href="https://github.com/jonatasoc/gobarber-backend/issues">
     <img alt="Repository issues" src="https://img.shields.io/github/issues/jonatasoc/gobarber-backend">
   </a>
-  <img alt="License" src="https://img.shields.io/github/license/jonatasoc/gobarber-backend">
+   <img alt="License" src="https://img.shields.io/github/license/jonatasoc/gobarber-backend">
 </p>
 <p align="center">
 
+## :book: Methodology and Techniques
+
+- **TDD**
+- **SOLID**
 
 ## :computer: Languages
 
@@ -69,8 +73,8 @@ yarn dev:server
 
 👤 **Jonatas de Oliveira Coelho**
 
-* Github: [@JonatasOC](https://github.com/JonatasOC)
-* Linkedin: [@JonatasOC](https://www.linkedin.com/in/jonatasoc/)
+- Github: [@JonatasOC](https://github.com/JonatasOC)
+- Linkedin: [@JonatasOC](https://www.linkedin.com/in/jonatasoc/)
 
 ## :closed_book: License
 
