@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
+import UserMap from '@modules/users/dtos/UserMap';
 // startOfHour vai pegar a hora passada e colocar minuto e segundos como 0, deixando apenas a hora
 // pasrseISO vai converter um formato String para um formato Date
 
@@ -16,8 +17,8 @@ export default class SessionsController {
       password,
     });
 
-    delete user.password;
+    const mappedUser = UserMap.toDTO(user);
 
-    return response.json({ user, token });
+    return response.json({ mappedUser, token });
   }
 }

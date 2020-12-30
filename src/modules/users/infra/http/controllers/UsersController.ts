@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateUserService from '@modules/users/services/CreateUserService';
+import UserMap from '@modules/users/dtos/UserMap';
 
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -16,10 +17,9 @@ export default class UsersController {
         password,
       });
 
-      // Deletando as informações do password para não aparecer no retorno da rota.
-      delete user.password;
+      const mappedUser = UserMap.toDTO(user);
 
-      return response.json(user);
+      return response.json(mappedUser);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

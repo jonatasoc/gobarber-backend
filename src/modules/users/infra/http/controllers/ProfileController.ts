@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
+import UserMap from '@modules/users/dtos/UserMap';
 
 export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
@@ -12,9 +13,10 @@ export default class ProfileController {
 
     const user = await showProfile.execute({ user_id });
 
-    delete user.password;
+    // To remove user.password on response
+    const mappedUser = UserMap.toDTO(user);
 
-    return response.json(user);
+    return response.json(mappedUser);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -33,9 +35,9 @@ export default class ProfileController {
       });
 
       // Deletando as informações do password para não aparecer no retorno da rota.
-      delete user.password;
+      const mappedUser = UserMap.toDTO(user);
 
-      return response.json(user);
+      return response.json(mappedUser);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
