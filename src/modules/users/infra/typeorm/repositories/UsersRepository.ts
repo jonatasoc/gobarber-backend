@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Not, Repository } from 'typeorm';
 
 import User from '../entities/User';
 import CreateUserDTO from '@modules/users/dtos/CreateUserDTO';
@@ -24,6 +24,22 @@ class UsersRepository implements UsersRepositoryInterface {
     });
 
     return user;
+  }
+
+  public async findAllProviders(except_user_id?: string): Promise<User[]> {
+    let users: User[];
+
+    if (except_user_id) {
+      users = await this.ormRepository.find({
+        where: {
+          id: Not(except_user_id),
+        },
+      });
+    } else {
+      users = await this.ormRepository.find();
+    }
+
+    return users;
   }
 
   public async create({ email, name, password }: CreateUserDTO): Promise<User> {
