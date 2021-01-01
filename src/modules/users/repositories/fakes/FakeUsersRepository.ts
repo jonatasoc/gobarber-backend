@@ -17,6 +17,16 @@ class UsersRepository implements UsersRepositoryInterface {
     return findUser;
   }
 
+  public async findAllProvideres(except_user_id?: string): Promise<User[]> {
+    let { users } = this;
+
+    if (except_user_id) {
+      users = this.users.filter(user => user.id !== except_user_id);
+    }
+
+    return users;
+  }
+
   public async create(userData: CreateUserDTO): Promise<User> {
     const user = new User();
 
