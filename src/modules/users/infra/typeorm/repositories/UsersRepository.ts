@@ -4,6 +4,7 @@ import User from '../entities/User';
 import CreateUserDTO from '@modules/users/dtos/CreateUserDTO';
 
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositoryInterface';
+import FindAllProvidersDTO from '@modules/users/dtos/FindAllProvidersDTO';
 
 class UsersRepository implements UsersRepositoryInterface {
   private ormRepository: Repository<User>;
@@ -26,7 +27,9 @@ class UsersRepository implements UsersRepositoryInterface {
     return user;
   }
 
-  public async findAllProviders(except_user_id?: string): Promise<User[]> {
+  public async findAllProviders({
+    except_user_id,
+  }: FindAllProvidersDTO): Promise<User[]> {
     let users: User[];
 
     if (except_user_id) {

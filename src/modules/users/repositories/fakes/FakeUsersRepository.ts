@@ -3,6 +3,7 @@ import CreateUserDTO from '@modules/users/dtos/CreateUserDTO';
 import { uuid } from 'uuidv4';
 
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositoryInterface';
+import FindAllProvidersDTO from '@modules/users/dtos/FindAllProvidersDTO';
 
 class UsersRepository implements UsersRepositoryInterface {
   private users: User[] = [];
@@ -17,7 +18,9 @@ class UsersRepository implements UsersRepositoryInterface {
     return findUser;
   }
 
-  public async findAllProviders(except_user_id?: string): Promise<User[]> {
+  public async findAllProviders({
+    except_user_id,
+  }: FindAllProvidersDTO): Promise<User[]> {
     let { users } = this;
 
     if (except_user_id) {
