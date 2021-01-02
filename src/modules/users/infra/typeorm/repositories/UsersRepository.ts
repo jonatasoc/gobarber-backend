@@ -46,7 +46,7 @@ class UsersRepository implements UsersRepositoryInterface {
   }
 
   public async create({ email, name, password }: CreateUserDTO): Promise<User> {
-    const user = await this.ormRepository.create({ email, name, password });
+    const user = this.ormRepository.create({ email, name, password });
 
     await this.ormRepository.save(user);
 
