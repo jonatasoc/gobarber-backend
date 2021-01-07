@@ -5,7 +5,7 @@ import AppointmentsRepositoryInterface from '../repositories/AppointmentsReposit
 // import User from '@modules/users/infra/typeorm/entities/User';
 
 interface Request {
-  user_id: string;
+  provider_id: string;
   month: number;
   year: number;
 }
@@ -22,7 +22,20 @@ class ListProviderMonthAvailabilityService {
     private appointmentsRepository: AppointmentsRepositoryInterface
   ) {}
 
-  public async execute({ user_id, year, month }: Request): Promise<Response> {
+  public async execute({
+    provider_id,
+    year,
+    month,
+  }: Request): Promise<Response> {
+    const appointments = await this.appointmentsRepository.findAllInMonthFromProvider(
+      {
+        provider_id,
+        year,
+        month,
+      }
+    );
+
+    console.log(appointments);
     return [{ day: 1, available: false }];
   }
 }
