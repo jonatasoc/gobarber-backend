@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { injectable, inject } from 'tsyringe';
-// import { getDate, getDaysInMonth } from 'date-fns';
+import { getHours } from 'date-fns';
 
 import AppointmentsRepositoryInterface from '../repositories/AppointmentsRepositoryInterface';
 
@@ -31,7 +31,34 @@ class ListProviderDayAvailabilityService {
     month,
     day,
   }: Request): Promise<Response> {
-    return [{ hour: 8, available: true }];
+    const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
+      {
+        provider_id,
+        year,
+        month,
+        day,
+      }
+    );
+
+    const hourStart = 8;
+
+    const eachHourArray = Array.from(
+      { length: 10 },
+      (__, index) => index + hourStart
+    );
+
+    const availability = eachHourArray.map(hour => {
+      const hasAppointmentsInHour = appointments.find(
+        appointment => getHours(appointment.date) === hour
+      );
+
+      return {
+        hour,
+        available: !hasAppointmentsInHour,
+      };
+    });
+
+    return availability;
   }
 }
 
