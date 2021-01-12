@@ -9,6 +9,7 @@ import AppointmentsRepositoryInterface from '../repositories/AppointmentsReposit
 
 interface Request {
   provider_id: string;
+  user_id: string;
   date: Date;
 }
 
@@ -19,10 +20,16 @@ class CreateAppointmentService {
     private appointmentsRepository: AppointmentsRepositoryInterface
   ) {}
 
-  public async execute({ date, provider_id }: Request): Promise<Appointment> {
+  public async execute({
+    date,
+    provider_id,
+    user_id,
+  }: Request): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
 
-    const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(appointmentDate);
+    const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
+      appointmentDate
+    );
 
     if (findAppointmentInSameDate) {
       throw new AppError('This appointment is already booked');
@@ -30,6 +37,7 @@ class CreateAppointmentService {
 
     const appointment = await this.appointmentsRepository.create({
       provider_id,
+      user_id,
       date: appointmentDate,
     });
 
