@@ -10,12 +10,15 @@ let createAppointment: CreateAppointmentService;
 describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
-    createAppointment = new CreateAppointmentService(fakeAppointmentsRepository);
+    createAppointment = new CreateAppointmentService(
+      fakeAppointmentsRepository
+    );
   });
 
   it('should be able to create a new appointment', async () => {
     const appointment = await createAppointment.execute({
       date: new Date(),
+      user_id: 'user',
       provider_id: '134134134134',
     });
 
@@ -28,12 +31,14 @@ describe('CreateAppointment', () => {
 
     await createAppointment.execute({
       date: appointmentDate,
+      user_id: 'user',
       provider_id: '134134134134',
     });
 
     await expect(
       createAppointment.execute({
         date: appointmentDate,
+        user_id: 'user',
         provider_id: '134134134134',
       })
     ).rejects.toBeInstanceOf(AppError);
