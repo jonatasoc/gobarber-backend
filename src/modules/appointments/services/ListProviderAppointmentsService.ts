@@ -14,7 +14,7 @@ interface Request {
 }
 
 @injectable()
-class ListProviderMonthAvailabilityService {
+class ListProviderAppointmentsService {
   constructor(
     @inject('AppointmentsRepository')
     private appointmentsRepository: AppointmentsRepositoryInterface
@@ -34,7 +34,9 @@ class ListProviderMonthAvailabilityService {
         month,
       }
     );
+
+    return appointments;
   }
 }
 
-export default ListProviderMonthAvailabilityService;
+export default ListProviderAppointmentsService;
