@@ -38,7 +38,7 @@ Backend of Go Barber App (https://github.com/jonatasoc/gostack_gobarber_web)
 - **AWS S3**
 - **Multer**
 - **AWS SES**
-- **Celebrate**
+- **Celebrate/Joi**
 - **JWT**
 - **Nodemailer**
 - **Handlebars**
