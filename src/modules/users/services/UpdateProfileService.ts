@@ -24,7 +24,13 @@ class UpdateProfileService {
     private hashProvider: HashProviderInterface
   ) {}
 
-  public async execute({ user_id, name, email, password, old_password }: Request): Promise<User> {
+  public async execute({
+    user_id,
+    name,
+    email,
+    password,
+    old_password,
+  }: Request): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {
@@ -41,11 +47,16 @@ class UpdateProfileService {
     user.email = email;
 
     if (password && !old_password) {
-      throw new AppError('You need to inform the old password to set a new password.');
+      throw new AppError(
+        'You need to inform the old password to set a new password.'
+      );
     }
 
     if (password && old_password) {
-      const checkOldPassword = await this.hashProvider.compareHash(old_password, user.password);
+      const checkOldPassword = await this.hashProvider.compareHash(
+        old_password,
+        user.password
+      );
 
       if (!checkOldPassword) {
         throw new AppError('Old password not match .');

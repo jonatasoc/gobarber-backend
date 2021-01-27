@@ -2,9 +2,8 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
-import UserMap from '@modules/users/dtos/UserMap';
-// startOfHour vai pegar a hora passada e colocar minuto e segundos como 0, deixando apenas a hora
-// pasrseISO vai converter um formato String para um formato Date
+// import UserMap from '@modules/users/dtos/UserMap';
+import { classToClass } from 'class-transformer';
 
 export default class SessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -17,8 +16,8 @@ export default class SessionsController {
       password,
     });
 
-    const mappedUser = UserMap.toDTO(user);
+    // const mappedUser = UserMap.toDTO(user);
 
-    return response.json({ mappedUser, token });
+    return response.json({ user: classToClass(user), token });
   }
 }

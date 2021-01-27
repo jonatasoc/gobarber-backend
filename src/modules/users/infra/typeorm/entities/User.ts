@@ -32,9 +32,11 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Expose()
-  get avatar_url(): string {
-    return `${process.env.APP_API_URL}/files/${this.avatar}`;
+  @Expose({ name: 'avatar_url' })
+  get getAvatarUrl(): string | null {
+    return this.avatar
+      ? `${process.env.APP_API_URL}/files/${this.avatar}`
+      : null;
   }
 }
 
