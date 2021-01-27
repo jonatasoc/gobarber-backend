@@ -12,7 +12,10 @@ describe('UpdateUserAvatar', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
     fakeStorageProvider = new FakeStorageProvider();
-    updateUserAvatar = new UpdateUserAvatarService(fakeUsersRepository, fakeStorageProvider);
+    updateUserAvatar = new UpdateUserAvatarService(
+      fakeUsersRepository,
+      fakeStorageProvider
+    );
   });
 
   it('should be able to update user avatar', async () => {

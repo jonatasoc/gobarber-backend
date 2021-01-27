@@ -1,4 +1,3 @@
-import User from '../../infra/typeorm/entities/User';
 import { uuid } from 'uuidv4';
 
 import UserTokensInterface from '@modules/users/repositories/UserTokensInterface';
@@ -24,7 +23,9 @@ class FakeUserTokensRepository implements UserTokensInterface {
   }
 
   public async findByToken(token: string): Promise<UserToken | undefined> {
-    const userToken = this.userTokens.find(findToken => findToken.token === token);
+    const userToken = this.userTokens.find(
+      findToken => findToken.token === token
+    );
 
     return userToken;
   }
