@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import StorageProviderInterface from './StorageProvider/models/SotareProviderInterface';
 import DiskStorageProvider from './StorageProvider/implementations/DiskStorageProvider';
 
+import './MailTemplateProvider';
 import './MailProvider';
 // import MailProviderInterface from './MailProvider/models/MailProviderInterface';
 
