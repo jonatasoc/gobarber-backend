@@ -17,6 +17,9 @@ interface UploadConfigInterface {
 
   config: {
     disk: {};
+    aws: {
+      bucket: string;
+    };
   };
 }
 
@@ -31,10 +34,18 @@ export default {
       destination: tmpFolder,
       filename: (request, file, callback) => {
         const fileHash = crypto.randomBytes(10).toString('hex');
-        const fileName = `${fileHash}-${file.originalname}`;
+        const fileName = `${fileHash}-${file.originalname}`
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f\s]/g, '');
 
         return callback(null, fileName);
       },
     }),
+  },
+  config: {
+    disk: {},
+    aws: {
+      bucket: 'app-gobarber-jonatasoc',
+    },
   },
 } as UploadConfigInterface;
