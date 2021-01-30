@@ -15,7 +15,7 @@ class DiskStorageProvider implements StorageProviderInterface {
     });
   }
   public async saveFile(file: string): Promise<string> {
-    const originalPath = path.resolve(uploadconfig.tempFolder, file);
+    const originalPath = path.resolve(uploadconfig.tmpFolder, file);
 
     const fileContent = await fs.promises.readFile(originalPath, {
       encoding: 'utf-8',
@@ -34,15 +34,12 @@ class DiskStorageProvider implements StorageProviderInterface {
   }
 
   public async deleteFile(file: string): Promise<void> {
-    const filePath = path.resolve(uploadconfig.uploadsFolder, file);
-
-    try {
-      await fs.promises.stat(filePath);
-    } catch {
-      return;
-    }
-
-    await fs.promises.unlink(filePath);
+    await this.client
+      .deleteObject({
+        Bucket: 'app-gobarber-jonatasoc',
+        Key: file,
+      })
+      .promise();
   }
 }
 

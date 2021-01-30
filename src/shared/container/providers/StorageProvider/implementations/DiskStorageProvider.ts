@@ -9,7 +9,7 @@ class DiskStorageProvider implements StorageProviderInterface {
   public async saveFile(file: string): Promise<string> {
     // rename é a forma de mover arquivos no Node
     await fs.promises.rename(
-      path.resolve(uploadconfig.tempFolder, file),
+      path.resolve(uploadconfig.tmpFolder, file),
       path.resolve(uploadconfig.uploadsFolder, file)
     );
     return file;
