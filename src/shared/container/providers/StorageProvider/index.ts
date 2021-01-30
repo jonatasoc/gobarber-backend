@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+import uploadConfig from '@config/upload';
 
 import StorageProviderInterface from './models/SotareProviderInterface';
 import DiskStorageProvider from './implementations/DiskStorageProvider';
@@ -11,5 +12,5 @@ const providers = {
 
 container.registerSingleton<StorageProviderInterface>(
   'StorageProvider',
-  providers.s3
+  providers[uploadConfig.driver]
 );
