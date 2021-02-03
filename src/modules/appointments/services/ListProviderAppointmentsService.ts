@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import Appointment from '../infra/typeorm/entities/Appointment';
 
 import AppointmentsRepositoryInterface from '../repositories/AppointmentsRepositoryInterface';
+import CacheProviderInterface from '@shared/container/providers/CacheProvider/models/CacheProviderInterface';
 
 // import User from '@modules/users/infra/typeorm/entities/User';
 
@@ -17,7 +18,10 @@ interface Request {
 class ListProviderAppointmentsService {
   constructor(
     @inject('AppointmentsRepository')
-    private appointmentsRepository: AppointmentsRepositoryInterface
+    private appointmentsRepository: AppointmentsRepositoryInterface,
+
+    @inject('CacheProvier')
+    private cacheProvider: CacheProviderInterface
   ) {}
 
   public async execute({
@@ -34,6 +38,8 @@ class ListProviderAppointmentsService {
         month,
       }
     );
+
+    await this.cacheProvider.save('asd', 'asd');
 
     return appointments;
   }
