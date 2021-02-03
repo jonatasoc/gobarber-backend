@@ -20,7 +20,7 @@ class ListProviderAppointmentsService {
     @inject('AppointmentsRepository')
     private appointmentsRepository: AppointmentsRepositoryInterface,
 
-    @inject('CacheProvier')
+    @inject('CacheProvider')
     private cacheProvider: CacheProviderInterface
   ) {}
 
@@ -30,6 +30,10 @@ class ListProviderAppointmentsService {
     year,
     month,
   }: Request): Promise<Appointment[]> {
+    const cacheData = await this.cacheProvider.recover('asd');
+
+    console.log(cacheData);
+
     const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
       {
         provider_id,
@@ -39,7 +43,7 @@ class ListProviderAppointmentsService {
       }
     );
 
-    await this.cacheProvider.save('asd', 'asd');
+    // await this.cacheProvider.save('asd', 'asd');
 
     return appointments;
   }
