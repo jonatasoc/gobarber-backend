@@ -11,7 +11,7 @@ export default class CacheProvider implements CacheProviderInterface {
   }
 
   public async save(key: string, value: string): Promise<void> {
-    await this.client.set(key, value);
+    await this.client.set(key, JSON.stringify(value));
   }
 
   public async recover(key: string): Promise<string | null> {
