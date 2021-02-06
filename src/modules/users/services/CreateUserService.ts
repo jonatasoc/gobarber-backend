@@ -7,6 +7,7 @@ import User from '../infra/typeorm/entities/User';
 import UsersRepositoryInterface from '@modules/users/repositories/UsersRepositoryInterface';
 
 import HashProviderInterface from '../providers/HashProvider/models/HashProviderInterface';
+import CacheProviderInterface from '@shared/container/providers/CacheProvider/models/CacheProviderInterface';
 
 interface Request {
   name: string;
@@ -21,7 +22,10 @@ class CreateUserService {
     private usersRepository: UsersRepositoryInterface,
 
     @inject('HashProvider')
-    private hashProvider: HashProviderInterface
+    private hashProvider: HashProviderInterface,
+
+    @inject('CacheProvider')
+    private cacheProvider: CacheProviderInterface
   ) {}
 
   public async execute({ name, email, password }: Request): Promise<User> {
@@ -39,7 +43,7 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    // await this.usersRepository.save(user);
+    await this.cacheProvider.save();
 
     return user;
   }
