@@ -23,7 +23,7 @@ usersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      nome: Joi.string().required(),
+      name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
     },
