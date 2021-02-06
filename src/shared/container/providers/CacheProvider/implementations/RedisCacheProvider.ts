@@ -27,4 +27,16 @@ export default class CacheProvider implements CacheProviderInterface {
   }
 
   public async invalidate(key: string): Promise<void> {}
+
+  public async invalidatePrefix(prefix: string): Promise<void> {
+    // We're saving the cache with the key format prefix:key. So here we have one way to invalidate all
+    // the related prefixs
+    const keys = await this.client.keys(`${prefix}:*`);
+
+    const pipeline = await this.client.pipeline();
+
+    keys.forEach(key => pipeline.del(key));
+
+    await pipeline.exec();
+  }
 }
