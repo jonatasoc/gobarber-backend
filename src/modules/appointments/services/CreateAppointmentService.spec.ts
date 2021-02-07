@@ -1,11 +1,13 @@
 import CreateAppointmentService from './CreateAppointmentService';
 
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
+import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/FakeCacheProvider';
 import FakeNotificationsRepository from '@modules/notifications/repositories/fakes/FakeNotificationsRepository';
 import AppError from '@shared/errors/AppError';
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository;
 let fakeNotificationsRepository: FakeNotificationsRepository;
+let fakeCacheProvider: FakeCacheProvider;
 let createAppointment: CreateAppointmentService;
 
 // describe criar como uma "Categoria para os testes"
@@ -13,9 +15,12 @@ describe('CreateAppointment', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
     fakeNotificationsRepository = new FakeNotificationsRepository();
+    fakeCacheProvider = new FakeCacheProvider();
+
     createAppointment = new CreateAppointmentService(
       fakeAppointmentsRepository,
-      fakeNotificationsRepository
+      fakeNotificationsRepository,
+      fakeCacheProvider
     );
   });
 
