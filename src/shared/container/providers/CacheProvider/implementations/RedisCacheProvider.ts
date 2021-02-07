@@ -26,7 +26,9 @@ export default class CacheProvider implements CacheProviderInterface {
     return parsedData;
   }
 
-  public async invalidate(key: string): Promise<void> {}
+  public async invalidate(key: string): Promise<void> {
+    this.client.del(key);
+  }
 
   public async invalidatePrefix(prefix: string): Promise<void> {
     // We're saving the cache with the key format prefix:key. So here we have one way to invalidate all

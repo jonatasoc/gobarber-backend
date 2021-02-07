@@ -7,6 +7,7 @@ import Appointment from '../infra/typeorm/entities/Appointment';
 import AppError from '@shared/errors/AppError';
 import AppointmentsRepositoryInterface from '../repositories/AppointmentsRepositoryInterface';
 import NotificationRepositoryInterface from '@modules/notifications/repositories/NotificationRepositoryInterface';
+import CacheProviderInterface from '@shared/container/providers/CacheProvider/models/CacheProviderInterface';
 
 interface Request {
   provider_id: string;
@@ -21,7 +22,10 @@ class CreateAppointmentService {
     private appointmentsRepository: AppointmentsRepositoryInterface,
 
     @inject('NotificationsRepository')
-    private notificationsRepository: NotificationRepositoryInterface
+    private notificationsRepository: NotificationRepositoryInterface,
+
+    @inject('CacheProvider')
+    private cacheProvider: CacheProviderInterface
   ) {}
 
   public async execute({
@@ -65,6 +69,13 @@ class CreateAppointmentService {
       recipient_id: provider_id,
       content: `Novo agendamento para dia ${dateFormatted}`,
     });
+
+    await this.cacheProvider.invalidate(
+      `provider-appointments:${provider_id}:${format(
+        appointmentDate,
+        'YYYY-M-d'
+      )}`
+    );
 
     return appointment;
   }
