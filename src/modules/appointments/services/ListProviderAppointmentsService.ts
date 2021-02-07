@@ -5,8 +5,6 @@ import Appointment from '../infra/typeorm/entities/Appointment';
 import AppointmentsRepositoryInterface from '../repositories/AppointmentsRepositoryInterface';
 import CacheProviderInterface from '@shared/container/providers/CacheProvider/models/CacheProviderInterface';
 
-// import User from '@modules/users/infra/typeorm/entities/User';
-
 interface Request {
   provider_id: string;
   day: number;
