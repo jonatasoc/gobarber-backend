@@ -46,7 +46,7 @@ class User {
       case 's3':
         return `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${this.avatar}`;
       default:
-        null;
+        return null;
     }
   }
 }
