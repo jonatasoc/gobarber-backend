@@ -63,6 +63,9 @@ class AppointmentsRepository implements AppointmentsRepositoryInterface {
         ),
       },
       relations: ['user'],
+      order: {
+        date: 'ASC',
+      },
     });
 
     return appointments;
